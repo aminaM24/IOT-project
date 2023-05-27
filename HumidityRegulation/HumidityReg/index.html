@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<html lang="en"></html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="app.js"></script>
+
+
+<head>
+    <title>Vlažnost zraka</title>
+    
+       <script type="module">
+        // Import the functions you need from the SDKs you need
+  
+        var firebaseConfig = {
+  apiKey: "AIzaSyDL9o0i0IZ5qlSpmTtcPjnJewyM9HGaXj8",
+  authDomain: "humidity-regulation.firebaseapp.com",
+  databaseURL: "https://humidity-regulation-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "humidity-regulation",
+  storageBucket: "humidity-regulation.appspot.com",
+  messagingSenderId: "535868272989",
+  appId: "1:535868272989:web:cb88caad22006b31f078b4",
+  measurementId: "G-PZGGBV0NBB"
+};
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        
+        var vlaznostZraka=document.getElementById('vlagaInput');
+        var btn = document.getElementById('btn');
+        var button1=document.getElementById("btn1");
+        var vlaznost= firebase.database().ref().child('vlaznost/vlaznost');
+        var relej = firebase.database().ref().child('PWS/relej');
+        var signal = firebase.database().ref().child('PWS/signal');
+    
+        vlaznost.on('value', (podatak) =>{
+        var vrijednost=podatak.val();
+        vlagaZraka.innerHTML=vrijednost;
+        
+        var temp=document.getElementById('klasa');
+    });
+</script>
+</head>
+
+<body>
+   
+   <br>
+     
+
+    <div class="stats" style="background-color:white; opacity: 75%;">
+        <div class="row">
+            <div class="card1" id="klasa"  style="color: black; height: 70%">
+                <h1>Vlažnost zraka</h1>
+                <br>
+                <br>
+                <h2 id="vlagaZraka"> vrijednost + "%"</h2>
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card2"  style="color: black;">
+                <h1>Podesite vlažnost zraka</h1>
+                <br>
+                <br>
+                <input type="number" class="form-control" id="vlagaInput" placeholder="Podesite vlažnost zraka">
+                <button id="btn" class="btn btn-outline-success" onclick="spasiPodatke()" >Spasi</button>
+                <button id="btn" class="btn btn-outline-success" onclick="blinkaj(1)" >Blinkaj</button>
+
+            </div>
+    </div>
+</div>
+<img id="img" src="slike/cda95b059b45b6d7066029bcd2eed9f8.jpg">
+</body>
+</html>
